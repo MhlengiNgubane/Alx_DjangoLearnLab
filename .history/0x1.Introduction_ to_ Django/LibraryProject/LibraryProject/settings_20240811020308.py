@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bookshelf.apps.BookshelfConfig',
+    'bookshelf.apps.',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
