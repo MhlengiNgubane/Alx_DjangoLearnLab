@@ -29,7 +29,7 @@ def books_in_library(library_name):
     except Library.DoesNotExist:
         print(f"Library '{library_name}' does not exist.")
 
-
+# Retrieve the librarian for a library
 def librarian_for_library(library_name):
     try:
         library = Library.objects.get(name=library_name)
