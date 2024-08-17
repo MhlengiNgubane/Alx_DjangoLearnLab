@@ -1,11 +1,10 @@
 import os
 
 import django
+from relationship_app.models import Author, Book, Librarian, Library
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')
 django.setup()
-
-from relationship_app.models import Author, Book, Librarian, Library
 
 
 def books_by_author(author_name):
@@ -30,12 +29,12 @@ def books_in_library(library_name):
         print(f"Library '{library_name}' does not exist.")
 
 
-def librarian_for_library(library_name):
+def retrieve_librarian_for_library(library_name):
     try:
-        library = Librarian.objects.get(name=library_name)
+        library = Library.objects.get(name=library_name)
         librarian = library.librarian
-        print(f"Librarian for {library_name}: {librarian.name}")
+        print(f'Librarian for {library_name}: {librarian.name}')
     except Library.DoesNotExist:
-        print(f"Library '{library_name}' does not exist.")
+        print(f'Library with name "{library_name}" does not exist.')
     except Librarian.DoesNotExist:
-        print(f"No librarian assigned to '{library_name}'.")
+        print(f'No librarian found for library "{library_name}".')
