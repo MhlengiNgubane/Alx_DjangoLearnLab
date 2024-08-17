@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import (permission_required,
-                                            user_passes_test)
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404, redirect, render
