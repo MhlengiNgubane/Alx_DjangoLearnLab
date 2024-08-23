@@ -31,10 +31,41 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+from django.contrib.auth.models import Permission, User
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
+
+
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view document"),
+            ("can_create", "Can create document"),
+            ("can_edit", "Can edit document"),
+            ("can_delete", "Can delete document"),
+        ]
+
+    def __str__(self):
+        return self.title
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        permissions = [
+            ("can_view_article", "Can view article"),
+            ("can_create_article", "Can create article"),
+            ("can_edit_article", "Can edit article"),
+            ("can_delete_article", "Can delete article"),
+        ]
 
     def __str__(self):
         return self.title
