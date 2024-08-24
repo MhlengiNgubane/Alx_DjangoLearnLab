@@ -1,5 +1,14 @@
-<form method="post" action="{% url 'some_view' %}">
-    {% csrf_token %}
-    
-    <button type="submit">Submit</button>
-</form>
+<html>
+<head>
+    <title>Example Form</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Book</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'book_list' %}">Back to List</a>
+</body>
+</html>
