@@ -128,7 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Prevents the browser from interpreting files as a different MIME type
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# Enforces that your site is only displayed in a frame or iframe from the same origin
+# Enforces that your site is only displayed in a frame or frame from the same origin
 X_FRAME_OPTIONS = 'DENY'
 
 # Enables the browser's XSS filtering and prevents the rendering of pages with detected XSS attacks
@@ -143,3 +143,10 @@ CSRF_COOKIE_HTTPONLY = True
 
 # Secure settings for cookies
 SESSION_COOKIE_HTTPONLY = True
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
