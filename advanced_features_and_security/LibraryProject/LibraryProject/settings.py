@@ -125,6 +125,9 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Configure Django to trust the X-Forwarded-Proto header from the proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Prevents the browser from interpreting files as a different MIME type
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
