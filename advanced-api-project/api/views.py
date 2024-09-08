@@ -5,22 +5,41 @@ from .models import Book
 from .serializers import BookSerializer
 
 
-class BookListView(generics.ListCreateAPIView):
+class BookListView(generics.ListAPIView):
     """
-    View to list all books or create a new book.
-    - GET: List all books.
-    - POST: Create a new book (requires authentication).
+    GET: Retrieve a list of all books.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BookDetailView(generics.RetrieveAPIView):
     """
-    View to retrieve, update, or delete a book by its ID.
-    - GET: Retrieve a book.
-    - PUT/PATCH: Update a book (requires authentication).
-    - DELETE: Delete a book (requires authentication).
+    GET: Retrieve a specific book by its ID.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class BookCreateView(generics.CreateAPIView):
+    """
+    POST: Create a new book.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+class BookUpdateView(generics.UpdateAPIView):
+    """
+    PUT/PATCH: Update a specific book.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+class BookDeleteView(generics.DestroyAPIView):
+    """
+    DELETE: Remove a specific book.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
