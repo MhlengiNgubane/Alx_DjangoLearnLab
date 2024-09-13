@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from taggit.forms import TagField, TagWidget
 
 from .models import Comment, Post, Tag
 
@@ -21,7 +20,11 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 class PostForm(forms.ModelForm):
-    tags = TagField(widget=TagWidget(attrs={'placeholder': 'Add tags separated by commas'}))  # Custom widget
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widgets=forms.CheckboxSelectMultiple,
+        required=False
+    )
 
     class Meta:
         model = Post
@@ -30,6 +33,7 @@ class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['tags'].queryset = Tag.objects.all()
+        
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
