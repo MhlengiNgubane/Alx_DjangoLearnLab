@@ -21,9 +21,9 @@ class CustomUserCreationForm(UserCreationForm):
         return user
 
 class PostForm(forms.ModelForm):
-    tags = TagWidget(
+    tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
-        widgets=forms.CheckboxSelectMultiple,
+        widgets=TagWidget(),
         required=False
     )
 
