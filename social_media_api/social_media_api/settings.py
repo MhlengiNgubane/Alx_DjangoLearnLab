@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'posts',
     'accounts',
+    'notifications',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

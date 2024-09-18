@@ -15,7 +15,7 @@
 3. Run the development server:
 
     python manage.py runserver
-   
+
 ### Posts
 
 - **List Posts**: `GET /api/posts/`
@@ -60,4 +60,17 @@
   ```json
   {
       "message": "You are now following username"
+  }
+
+## Likes
+
+### Like Post
+
+- **Endpoint**: `POST /api/posts/<post_id>/like/`
+- **Description**: Like a post by its ID.
+- **Request**: Authenticated user.
+- **Response Example**:
+  ```json
+  {
+      "detail": "Post liked"
   }

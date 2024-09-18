@@ -1,6 +1,10 @@
+from django.shortcuts import get_object_or_404
+from notifications.models import Notification
 from rest_framework import filters, generics, permissions, viewsets
+from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
-from .models import Comment, Post
+from .models import Comment, Like, Post
 from .serializers import CommentSerializer, PostSerializer
 
 
@@ -62,3 +66,32 @@ class FeedView(generics.ListAPIView):
     def get_queryset(self):
         following_users = self.request.user.following.all()
         return Post.objects.filter(author__in=following_users).order_by
+    
+class LikePostView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        if Like.objects.filter(user=request.user, post=post).exists():
+            return Response({'detail': 'Already liked'}, status=HTTP_400_BAD_REQUEST)
+        Like.objects.create(user=request.user, post=post)
+        # Create notification
+        if post.author != request.user:
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb='liked your post',
+                target=post
+            )
+        return Response({'detail': 'Post liked'}, status=HTTP_200_OK)
+
+class UnlikePostView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        like = Like.objects.filter(user=request.user, post=post).first()
+        if not like:
+            return Response({'detail': 'Not liked'}, status=HTTP_400_BAD_REQUEST)
+        like.delete()
+        return Response({'detail': 'Post unliked'}, status=HTTP_200_OK)    
