@@ -16,3 +16,34 @@
 
     python manage.py runserver
    
+### Posts
+
+- **List Posts**: `GET /api/posts/`
+- **Create Post**: `POST /api/posts/`
+- **Retrieve Post**: `GET /api/posts/{id}/`
+- **Update Post**: `PUT /api/posts/{id}/`
+- **Delete Post**: `DELETE /api/posts/{id}/`
+
+**Request Example:**
+
+```json
+{
+    "title": "New Post",
+    "content": "This is the content of the new post."
+}
+
+### comments
+
+- **List comments**: `GET /api/comments/`
+- **Create comments**: `POST /api/comments/`
+- **Retrieve comments**: `GET /api/comments/{id}/`
+- **Update comments**: `PUT /api/comments/{id}/`
+- **Delete comments**: `DELETE /api/comments/{id}/`
+
+**Request Example:**
+
+```json
+{
+    "post": 1,
+    "content": "This is a comment."
+}
