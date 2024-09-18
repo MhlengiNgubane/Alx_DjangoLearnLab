@@ -47,3 +47,17 @@
     "post": 1,
     "content": "This is a comment."
 }
+
+## Follow and Unfollow Users
+
+### Follow User
+
+- **Endpoint**: `POST /api/follow/<user_id>/`
+- **Description**: Follow a user by their user ID.
+- **Request Example**:
+  - No body required.
+- **Response Example**:
+  ```json
+  {
+      "message": "You are now following username"
+  }
